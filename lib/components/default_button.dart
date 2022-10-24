@@ -14,23 +14,27 @@ class DefaultButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 75,
-      child: ElevatedButton(
-        onPressed: onpress,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF1F4C26),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
+    var size = MediaQuery.of(context).size;
+    return Center(
+      child: SizedBox(
+        height: 75,
+        width: size.width * .7,
+        child: ElevatedButton(
+          onPressed: onpress,
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xFF1F4C26),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30),
+            ),
           ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: Text(
-            buttonText,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 19,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Text(
+              buttonText,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 19,
+              ),
             ),
           ),
         ),

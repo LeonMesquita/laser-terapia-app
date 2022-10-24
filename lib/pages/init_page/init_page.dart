@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:get/route_manager.dart';
 import 'package:laser_erapia/components/default_button.dart';
 import 'package:laser_erapia/components/know_more_button.dart';
+import 'package:laser_erapia/page_routes/app_pages.dart';
 import 'package:laser_erapia/utils/constants.dart';
 
 class InitPage extends StatelessWidget {
@@ -16,7 +18,6 @@ class InitPage extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     var screenHeight = size.height - appBarHeight;
     return Scaffold(
-      backgroundColor: Colors.green,
       body: Container(
         width: size.width,
         decoration: const BoxDecoration(
@@ -53,17 +54,19 @@ class InitPage extends StatelessWidget {
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Center(
                     child: KnowMoreButton(
                   onpress: () {},
                 )),
 
                 //
-                Expanded(child: SizedBox()),
+                const Expanded(child: SizedBox()),
                 Center(
                   child: DefaultButton(
-                      onpress: () {},
+                      onpress: () {
+                        Get.offNamed(PagesRoutes.equipmentForm);
+                      },
                       buttonText: 'INICIAR ATENDIMENTO',
                       buttonColor: kDefaultButtonColor),
                 )

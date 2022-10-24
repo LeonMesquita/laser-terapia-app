@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:laser_erapia/controllers/equipmentController.dart';
+import 'package:laser_erapia/controllers/woundController.dart';
 import 'package:laser_erapia/page_routes/app_pages.dart';
 import 'package:laser_erapia/pages/init_page/init_page.dart';
 import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
 
 void main() {
+  Get.put(EquipmentController());
+  Get.put(WoundController());
   runApp(const MyApp());
 }
 
