@@ -5,7 +5,7 @@ import '../utils/constants.dart';
 Widget titleText(text) {
   return Text(
     text,
-    style: kFormTitleStyle,
+    style: kResultTitleStyle,
     textAlign: TextAlign.center,
   );
 }

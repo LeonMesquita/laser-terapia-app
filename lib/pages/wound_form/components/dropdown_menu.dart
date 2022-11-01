@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:get/get.dart';
+
+import '../../../controllers/woundController.dart';
 
 class DropdownList extends StatefulWidget {
   List<String> listItems = [];
-  String selectedValue;
-  // String initialValue;
-  DropdownList(
-      {super.key, required this.listItems, required this.selectedValue});
+  String fieldName;
+  DropdownList({super.key, required this.listItems, required this.fieldName});
 
   @override
   State<DropdownList> createState() => _DropdownListState();
@@ -17,8 +18,22 @@ class _DropdownListState extends State<DropdownList> {
   String? initialValue;
 
   void setData(choice) {
-    widget.selectedValue = choice;
+    if (widget.fieldName == 'etiology') {
+      woundController.etiology.value = choice;
+    } else if (widget.fieldName == 'woundLocation') {
+      woundController.woundLocation.value = choice;
+    } else if (widget.fieldName == 'predominantTissue') {
+      woundController.predominantTissue.value = choice;
+    } else if (widget.fieldName == 'exudateAmount') {
+      woundController.exudateAmount.value = choice;
+    } else if (widget.fieldName == 'exudateType') {
+      woundController.exudateType.value = choice;
+    } else if (widget.fieldName == 'woundBorders') {
+      woundController.woundBorders.value = choice;
+    }
   }
+
+  final woundController = Get.find<WoundController>();
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +41,7 @@ class _DropdownListState extends State<DropdownList> {
     return Center(
       child: Container(
         margin: const EdgeInsets.only(top: 10, bottom: 20),
-        height: 40,
+        height: 50,
         width: size.width * .7,
         decoration: BoxDecoration(
             color: Colors.white,

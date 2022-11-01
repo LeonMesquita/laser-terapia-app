@@ -5,11 +5,12 @@ class WoundController extends GetxController {
   RxString woundLocation = ''.obs;
   RxDouble woundWidth = 0.0.obs;
   RxDouble woundLength = 0.0.obs;
+  RxDouble woundArea = 0.0.obs;
   RxString predominantTissue = ''.obs;
   RxString exudateAmount = ''.obs;
-  RxString resultType = ''.obs;
+  RxString exudateType = ''.obs;
   RxString woundBorders = ''.obs;
-  RxString signsOfInfection = ''.obs;
+  RxBool hasInfection = false.obs;
 
   void setData({
     required etiol,
@@ -20,7 +21,7 @@ class WoundController extends GetxController {
     required amount,
     required result,
     required borders,
-    required signs,
+    required infection,
   }) {
     etiology.value = etiol;
     woundLocation.value = location;
@@ -28,8 +29,12 @@ class WoundController extends GetxController {
     woundLength.value = length;
     predominantTissue.value = predominant;
     exudateAmount.value = amount;
-    resultType.value = result;
+    exudateType.value = result;
     woundBorders.value = borders;
-    signsOfInfection.value = signs;
+    hasInfection.value = infection;
+  }
+
+  void calculateWoundArea() {
+    woundArea.value = woundLength.value * woundWidth.value;
   }
 }

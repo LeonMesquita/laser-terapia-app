@@ -12,5 +12,7 @@ class EquipmentController extends GetxController {
     beamArea.value = area;
   }
 
-  void calculateDensity() {}
+  void calculateDensity() {
+    energyDensity.value = potency.value / beamArea.value;
+  }
 }

@@ -4,11 +4,13 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:laser_erapia/components/default_button.dart';
-import 'package:laser_erapia/components/dropdown_menu.dart';
+import 'package:laser_erapia/controllers/result_controller.dart';
+import 'package:laser_erapia/pages/wound_form/components/dropdown_menu.dart';
 import 'package:laser_erapia/components/form_area.dart';
 import 'package:laser_erapia/components/form_page_body.dart';
 import 'package:laser_erapia/controllers/woundController.dart';
 import 'package:laser_erapia/page_routes/app_pages.dart';
+import 'package:laser_erapia/pages/wound_form/components/radio_buttons.dart';
 import 'package:laser_erapia/utils/alert_dialog.dart';
 
 import '../../components/form_input.dart';
@@ -29,6 +31,68 @@ class _WoundFormState extends State<WoundForm> {
   var lengthController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
+  String predominantTissue = '';
+  String exudateAmount = '';
+  String exudateType = '';
+  String woundBorders = '';
+  final woundController = Get.find<WoundController>();
+  final resultController = Get.find<ResultController>();
+  bool showEtiology = false;
+  bool showLocation = false;
+  String etiology = '';
+  String location = '';
+  bool hasInfection = false;
+
+  List<String> listOfEtiologies = [
+    'Lesão por pressão',
+    'Úlcera venosa',
+    'Úlcera arterial',
+    'Pé diabético',
+    'Queimadura',
+    'Ferida operatória',
+    'Deiscência de FO',
+    'Abscesso',
+    'Escoriação',
+    'Dermatite',
+    'Ferida traumática',
+    'Lesão por Fournier',
+    'Radiodermite',
+    'Fasciíte necrosante',
+    'Lesão hansênica',
+    'Erisipela',
+    'Area doadora de enxerto',
+    'Area receptora de enxerto',
+  ];
+
+  List<String> listOfLocations = [
+    'Couro cabeludo',
+    'Occiptal',
+    'Face',
+    'Orelha D',
+    'Orelha E',
+    'Pescoço',
+    'Tórax',
+    'Membro superior D',
+    'Membro superior E',
+    'Abdome',
+    'Inguinal',
+    'Períneo',
+    'Membro inferior D',
+    'Membro inferior E',
+    'Pé D',
+    'Pé E',
+    'Dorso',
+    'Escápula D',
+    'Escápula E',
+    'Sacral',
+    'Ísquio D',
+    'Ísquio E',
+    'Trocanter D',
+    'Trocanter E',
+    'Calcanhar D',
+    'Calcanhar E'
+  ];
+
   @override
   Widget build(BuildContext context) {
     var appbar = AppBar();
@@ -38,13 +102,10 @@ class _WoundFormState extends State<WoundForm> {
     var screenHeight = size.height - appBarHeight;
     var paddingHeight = MediaQuery.of(context).padding.top;
 
-    final woundController = Get.find<WoundController>();
-
     return Scaffold(
       body: Form(
         key: _formKey,
         child: FormPageBody(children: [
-          SizedBox(height: paddingHeight + 10),
           const Padding(
             padding: EdgeInsets.only(left: 20),
             child: Text(
@@ -62,18 +123,65 @@ class _WoundFormState extends State<WoundForm> {
           ),
           FormArea(
             children: [
-              formTitle(text: 'Etiologia'),
-              FormInput(
-                hintText: 'Digite aqui',
-                inputController: etiologyController,
-                isText: true,
+              formTitle(
+                  text:
+                      'A etiologia da lesão é oncológica ou sem diagnóstico?'),
+              RadioButtons(
+                onPressNo: () {
+                  setState(() {
+                    etiology = "Válido";
+                    showEtiology = true;
+                  });
+                },
+                onPressYes: () {
+                  setState(() {
+                    etiology = "Etiologia inválida";
+                    showEtiology = true;
+                  });
+                },
               ),
-              formTitle(text: 'Localização anatômica'),
-              FormInput(
-                hintText: 'Digite aqui',
-                inputController: locationController,
-                isText: true,
+
+              if (etiology != 'Etiologia inválida' && showEtiology == true)
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    formTitle(text: 'Informe a etiologia'),
+                    DropdownList(
+                      listItems: listOfEtiologies,
+                      fieldName: 'etiology',
+                    ),
+                    SizedBox(height: 20)
+                  ],
+                ),
+
+              formTitle(text: 'A localização da lesão é em abdome gravídico?'),
+              RadioButtons(
+                onPressNo: () {
+                  setState(() {
+                    location = "Válido";
+                    showLocation = true;
+                  });
+                },
+                onPressYes: () {
+                  setState(() {
+                    location = "Localização inválida";
+                    showLocation = true;
+                  });
+                },
               ),
+              if (location != 'Localização inválida' && showLocation == true)
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    formTitle(text: 'Localização anatômica'),
+                    DropdownList(
+                      listItems: listOfLocations,
+                      fieldName: 'woundLocation',
+                    ),
+                    SizedBox(height: 20)
+                  ],
+                ),
+
               formTitle(text: 'Largura da lesão'),
               FormInput(
                 hintText: 'Digite em cm',
@@ -92,25 +200,25 @@ class _WoundFormState extends State<WoundForm> {
                   'Epitélio',
                   'Necrose preta, cinza ou esfacelos'
                 ],
-                selectedValue: woundController.predominantTissue.value,
+                fieldName: 'predominantTissue',
               ),
               formTitle(text: 'Quantidade de exsudato'),
               DropdownList(
                 listItems: const ['Nenhum', 'Pouco', 'Moderado', 'Acentuado'],
-                selectedValue: woundController.exudateAmount.value,
+                fieldName: 'exudateAmount',
               ),
 
-              formTitle(text: 'Tipo de resultado'),
+              formTitle(text: 'Tipo de exsudato'),
               DropdownList(
                 listItems: const [
                   'Seroso ou serosanguinolento',
                   'Sanguinolento com sangramento ativo',
                   'Seropurulento ou purulento',
                 ],
-                selectedValue: woundController.resultType.value,
+                fieldName: 'exudateType',
               ),
 
-              formTitle(text: 'Bordas'),
+              formTitle(text: 'Bordas da lesão'),
               DropdownList(
                 listItems: const [
                   'Regular ou irregular, aderida',
@@ -118,36 +226,112 @@ class _WoundFormState extends State<WoundForm> {
                   'Masceração',
                   'Hiperqueratose'
                 ],
-                selectedValue: woundController.woundBorders.value,
+                fieldName: 'woundBorders',
               ),
 
               //OBS: essa é a última pergunta
-              formTitle(text: 'Sinais de infecção'),
+              formTitle(text: 'A lesão possui sinais de infecção?'),
+              RadioButtons(
+                onPressNo: () {
+                  setState(() {
+                    hasInfection = false;
+                  });
+                },
+                onPressYes: () {
+                  setState(() {
+                    //  location = "Localização inválida";
+                    hasInfection = true;
+                  });
+                },
+              ),
             ],
           ),
-          SizedBox(height: screenHeight * .07),
-          DefaultButton(
-              onpress: () {
-                FocusScope.of(context).unfocus();
-                if (_formKey.currentState!.validate()) {
-                  final String etiology = etiologyController.text;
-
-                  if (etiology == 'oncologica' ||
-                      etiology == 'cancer' ||
-                      etiology == 'carcinoma sem diagnostico' ||
-                      etiology == 'nao sei') {
-                    alertDialog(
-                        context: context,
-                        message:
-                            'O tratamento é contraindicado para este tipo de etiologia.');
-                  }
-
-                  Get.offNamed(PagesRoutes.resultPage);
-                } else {}
-              },
-              buttonText: 'PROSSEGUIR',
-              buttonColor: kDefaultButtonColor)
         ]),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        child: DefaultButton(
+            onpress: () {
+              resultController.observations.value = [];
+              FocusScope.of(context).unfocus();
+              if (predominantTissue == 'Necrose preta, cinza ou esfacelos') {
+                resultController.observations
+                    .add('Adiar Laserterapia para após desbridamento');
+              }
+              //
+              //
+              if (woundController.exudateAmount.value != 'Nenhum' ||
+                  woundController.exudateType.value ==
+                      'Seropurulento ou purulento') {
+                resultController.observations
+                    .add('Adiar Laserterapia para após limpeza');
+              }
+              //
+              //
+              if (woundController.woundBorders.value ==
+                      'Regular ou irregular, aderida' ||
+                  woundController.woundBorders.value == 'Masceração') {
+                resultController.observations.add('Laserterapia na borda');
+              }
+              //
+              //
+              if (woundController.woundBorders.value == 'Descolada') {
+                resultController.observations
+                    .add('Laserterapia em profundidade do deslocamento');
+              }
+              //
+              //
+              if (woundController.woundBorders.value == 'Hiperqueratose') {
+                resultController.observations
+                    .add('Adiar Laserterapia na borda para após desbaste');
+              }
+              //
+              //
+              if (etiology == 'Etiologia inválida') {
+                showAlert(
+                    context: context,
+                    title: 'Etiologia inválida!',
+                    desc:
+                        'O tratamento é contraindicado para este tipo de etiologia.');
+              } else if (location == 'Localização inválida') {
+                showAlert(
+                    context: context,
+                    title: 'Localização inválida!',
+                    desc:
+                        'O tratamento é contraindicado na área do abdome em mulheres gestantes.');
+              }
+
+              //
+              //
+
+              else if (_formKey.currentState!.validate()) {
+                if (etiology.isEmpty ||
+                    location.isEmpty ||
+                    woundController.predominantTissue.value.isEmpty ||
+                    woundController.exudateAmount.value.isEmpty ||
+                    woundController.exudateType.value.isEmpty ||
+                    woundController.woundBorders.value.isEmpty) {
+                  showAlert(
+                      context: context,
+                      title: 'Preencha todos os campos!',
+                      desc: '');
+                } else {
+                  woundController.woundWidth.value =
+                      double.parse(widthController.text);
+                  woundController.woundLength.value =
+                      double.parse(lengthController.text);
+
+                  woundController.calculateWoundArea();
+                  resultController.determinateTreatment(hasInfection);
+                  woundController.hasInfection.value = hasInfection;
+                  Get.offNamed(PagesRoutes.resultPage);
+                }
+                //
+
+              } else {}
+            },
+            buttonText: 'CONCLUIR',
+            buttonColor: kDefaultButtonColor),
       ),
     );
   }

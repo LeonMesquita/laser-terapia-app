@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:get/get.dart';
+import 'package:laser_erapia/components/default_button.dart';
 import 'package:laser_erapia/components/form_page_body.dart';
+import 'package:laser_erapia/components/know_more_button.dart';
 import 'package:laser_erapia/components/title_text.dart';
 
+import '../../controllers/result_controller.dart';
+import '../../page_routes/app_pages.dart';
 import '../../utils/constants.dart';
 
 class ResultPage extends StatelessWidget {
-  const ResultPage({super.key});
+  ResultPage({super.key});
+
+  final resultController = Get.find<ResultController>();
 
   @override
   Widget build(BuildContext context) {
@@ -17,34 +24,79 @@ class ResultPage extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     var screenHeight = size.height - appBarHeight;
     var paddingHeight = MediaQuery.of(context).padding.top;
+
+    final observations = List<Widget>.generate(
+        resultController.observations.length,
+        (index) => Text(
+              '* ${resultController.observations[index]}',
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
+            ));
     return Scaffold(
-      body: FormPageBody(children: [
-        SizedBox(height: paddingHeight + 10),
-        const Padding(
-          padding: EdgeInsets.only(left: 20),
-          child: Text(
-            'Resultados',
-            style: kFormTitleStyle,
-            textAlign: TextAlign.start,
+      body: SingleChildScrollView(
+        child: FormPageBody(children: [
+          const Padding(
+            padding: EdgeInsets.only(left: 20),
+            child: Text(
+              'Resultados',
+              style: kFormTitleStyle,
+              textAlign: TextAlign.start,
+            ),
           ),
-        ),
-        const Padding(
-          padding: EdgeInsets.only(left: 20, right: 5),
-          child: Text(
-            'De acordo com suas respostas, analisamos as melhores situações para o paciente.',
-            style: kFormSubtitleStyle,
+          const Padding(
+            padding: EdgeInsets.only(left: 20, right: 5),
+            child: Text(
+              'De acordo com suas respostas, analisamos as melhores situações para o paciente.',
+              style: kFormSubtitleStyle,
+            ),
           ),
-        ),
-        const SizedBox(height: 30),
-        Center(
-          child: Image.asset(
-            'assets/images/check.png',
-            height: 120,
+          const SizedBox(height: 30),
+          Center(
+            child: Image.asset(
+              'assets/images/check.png',
+              height: 100,
+            ),
           ),
-        ),
-        const SizedBox(height: 10),
-        Center(child: titleText('Paciente indicado para laserterapia'))
-      ]),
+          const SizedBox(height: 10),
+          Center(child: titleText(resultController.result.value)),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 40),
+            child: Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    'Observações',
+                    style: TextStyle(fontSize: 25),
+                  ),
+                  SizedBox(height: 10),
+                  ...observations
+                ],
+              ),
+            ),
+          ),
+          //  Text(resultController.typeOfTreatment.value),
+          KnowMoreButton(
+            onpress: () {
+              Get.offNamed(PagesRoutes.resumeInformations);
+            },
+            buttonText: 'RESUMO DAS INFORMAÇÕES',
+          ),
+        ]),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        child: DefaultButton(
+            onpress: () {
+              Get.offNamed(PagesRoutes.equipmentForm);
+            },
+            buttonText: 'REFAZER CONSULTA',
+            buttonColor: kDefaultButtonColor),
+      ),
     );
   }
 }

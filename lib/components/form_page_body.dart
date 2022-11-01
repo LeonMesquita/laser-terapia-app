@@ -18,6 +18,7 @@ class FormPageBody extends StatelessWidget {
         appbar.preferredSize.height + MediaQuery.of(context).padding.top;
     var size = MediaQuery.of(context).size;
     var screenHeight = size.height - appBarHeight;
+    var paddingHeight = MediaQuery.of(context).padding.top;
     return Container(
       width: size.width,
       height: size.height,
@@ -30,7 +31,11 @@ class FormPageBody extends StatelessWidget {
           padding: const EdgeInsets.only(bottom: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: children,
+            children: [
+              SizedBox(height: paddingHeight + 10),
+              ...children,
+              SizedBox(height: 100),
+            ],
           ),
         ),
       ),
