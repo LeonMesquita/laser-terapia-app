@@ -18,22 +18,34 @@ class InitPage extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     var screenHeight = size.height - appBarHeight;
     return Scaffold(
+      backgroundColor: Colors.red.shade400,
       body: Container(
         width: size.width,
         decoration: const BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage(kInitBackgroundImage), fit: BoxFit.cover),
+          // image: DecorationImage(
+          //     image: AssetImage(kInitBackgroundImage), fit: BoxFit.cover),
+
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              // kRedColor,
+              Color.fromARGB(255, 185, 19, 7),
+              Color.fromARGB(255, 209, 73, 64),
+              Colors.white,
+            ],
+          ),
         ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Padding(
             padding: const EdgeInsets.only(bottom: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: MediaQuery.of(context).padding.top),
+                SizedBox(height: MediaQuery.of(context).padding.top + 10),
                 const Text(
-                  'Laser terapia',
+                  'Laserterapia',
                   style: kTitleStyle,
                   textAlign: TextAlign.start,
                 ),
@@ -46,26 +58,26 @@ class InitPage extends StatelessWidget {
                   textAlign: TextAlign.start,
                 ),
                 const SizedBox(height: 50),
-                Text(
-                  'O laser de baixa intensidade apresenta-se como uma opção adjuvant para auxiliar no tratamento de feridas por acelerar o processo de reparação tecidual.',
+                const Text(
+                  'O laser de baixa intensidade apresenta-se como uma opção adjuvante para auxiliar no tratamento de feridas por acelerar o processo de reparação tecidual.',
                   style: TextStyle(
                     fontSize: 20,
-                    color: Colors.black.withOpacity(0.7),
+                    color: Colors.white,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
                 const SizedBox(height: 10),
-                Center(
-                    child: KnowMoreButton(
-                  onpress: () {},
-                )),
+                // Center(
+                //     child: KnowMoreButton(
+                //   onpress: () {},
+                // )),
 
                 //
                 const Expanded(child: SizedBox()),
                 Center(
                   child: DefaultButton(
                       onpress: () {
-                        Get.offNamed(PagesRoutes.equipmentForm);
+                        Get.offNamed(PagesRoutes.chooseEquipment);
                       },
                       buttonText: 'INICIAR ATENDIMENTO',
                       buttonColor: kDefaultButtonColor),

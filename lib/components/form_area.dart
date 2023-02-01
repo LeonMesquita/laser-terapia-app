@@ -18,10 +18,10 @@ class FormArea extends StatelessWidget {
     return Center(
       child: Container(
         padding: const EdgeInsets.only(bottom: 20, top: 10),
-        margin: const EdgeInsets.only(top: 50),
+        //  margin: const EdgeInsets.only(top: 50),
         width: size.width * .9,
         decoration: BoxDecoration(
-          color: Color(0xFFDCDCDC),
+          //  color: Color(0xFFDCDCDC),
           borderRadius: BorderRadius.circular(30),
         ),
         child: Column(

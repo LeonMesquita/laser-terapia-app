@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:laser_erapia/utils/constants.dart';
 
 Widget formTitle({required text}) {
-  return Padding(
-    padding: const EdgeInsets.only(left: 15),
-    child: Text(
-      text,
-      style: const TextStyle(
-        fontSize: 25,
-        color: Color(0xFF2F983F),
-        fontWeight: FontWeight.bold,
-      ),
+  return Text(
+    text,
+    style: const TextStyle(
+      fontSize: 20,
+      color: Colors.black,
+      fontWeight: FontWeight.bold,
     ),
   );
 }
+// Color(0xFF2F983F),

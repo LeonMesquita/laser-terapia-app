@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:laser_erapia/utils/constants.dart';
 
 class DefaultButton extends StatelessWidget {
   final VoidCallback onpress;
@@ -21,7 +22,7 @@ class DefaultButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onpress,
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF1F4C26),
+          backgroundColor: kDefaultButtonColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30),
           ),

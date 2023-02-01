@@ -36,23 +36,32 @@ class ResultPage extends StatelessWidget {
               ),
             ));
     return Scaffold(
+      // backgroundColor: Color.fromARGB(255, 243, 240, 240),
+      appBar: AppBar(
+        backgroundColor: kRedColor,
+        title: const Text(
+          'Resultados',
+          style: TextStyle(fontSize: 25),
+        ),
+        centerTitle: true,
+      ),
       body: SingleChildScrollView(
         child: FormPageBody(children: [
-          const Padding(
-            padding: EdgeInsets.only(left: 20),
-            child: Text(
-              'Resultados',
-              style: kFormTitleStyle,
-              textAlign: TextAlign.start,
-            ),
-          ),
-          const Padding(
-            padding: EdgeInsets.only(left: 20, right: 5),
-            child: Text(
-              'De acordo com suas respostas, analisamos as melhores situações para o paciente.',
-              style: kFormSubtitleStyle,
-            ),
-          ),
+          // const Padding(
+          //   padding: EdgeInsets.only(left: 20),
+          //   child: Text(
+          //     'Resultados',
+          //     style: kFormTitleStyle,
+          //     textAlign: TextAlign.start,
+          //   ),
+          // ),
+          // const Padding(
+          //   padding: EdgeInsets.only(left: 20, right: 5),
+          //   child: Text(
+          //     'De acordo com suas respostas, analisamos as melhores situações para o paciente.',
+          //     style: kFormSubtitleStyle,
+          //   ),
+          // ),
           const SizedBox(height: 30),
           Center(
             child: Image.asset(
@@ -84,7 +93,7 @@ class ResultPage extends StatelessWidget {
             onpress: () {
               Get.offNamed(PagesRoutes.resumeInformations);
             },
-            buttonText: 'RESUMO DAS INFORMAÇÕES',
+            buttonText: 'PROTOCOLO DE APLICAÇÃO',
           ),
         ]),
       ),
@@ -92,9 +101,9 @@ class ResultPage extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: DefaultButton(
             onpress: () {
-              Get.offNamed(PagesRoutes.equipmentForm);
+              Get.offNamed(PagesRoutes.chooseEquipment);
             },
-            buttonText: 'REFAZER CONSULTA',
+            buttonText: 'NOVA CONSULTA',
             buttonColor: kDefaultButtonColor),
       ),
     );

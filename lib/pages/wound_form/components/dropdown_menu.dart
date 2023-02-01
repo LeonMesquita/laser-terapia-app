@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
+import 'package:laser_erapia/utils/constants.dart';
 
 import '../../../controllers/woundController.dart';
 
@@ -42,7 +43,7 @@ class _DropdownListState extends State<DropdownList> {
       child: Container(
         margin: const EdgeInsets.only(top: 10, bottom: 20),
         height: 50,
-        width: size.width * .7,
+        width: size.width,
         decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(color: Colors.grey.shade700, width: 1),
@@ -59,7 +60,7 @@ class _DropdownListState extends State<DropdownList> {
           value: initialValue ?? null,
           icon: const Icon(
             Icons.keyboard_arrow_down_outlined,
-            color: Colors.green,
+            color: kRedColor,
             size: 40,
           ),
           elevation: 16,
@@ -82,7 +83,7 @@ class _DropdownListState extends State<DropdownList> {
                   value,
                   style: const TextStyle(
                     fontSize: 15,
-                    color: Colors.green,
+                    color: Colors.black,
                     fontWeight: FontWeight.w600,
                     overflow: TextOverflow.ellipsis,
                   ),

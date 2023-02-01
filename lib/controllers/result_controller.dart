@@ -1,10 +1,6 @@
 import 'package:get/state_manager.dart';
 
 class ResultController extends GetxController {
-  RxDouble waveLength = 0.0.obs;
-  RxDouble potency = 0.0.obs;
-  RxDouble beamArea = 0.0.obs;
-  RxDouble energyDensity = 0.0.obs;
   RxString typeOfTreatment = ''.obs;
   RxString applicationMethod = ''.obs;
 
@@ -27,11 +23,7 @@ class ResultController extends GetxController {
       typeOfTreatment.value = 'Terapia Fotobiomodulação';
       result.value = 'Paciente indicado para Laserterapia Fotobiomodulação';
       applicationMethod.value =
-          'Iniciar o tratamento com dose de 4-5j/cm² por ponto a cada 48 a 72h. Não observando resultado satisfatório após algumas sessões, aumentar dose gradualmente até 10j/cm² por ponto a cada 48 a 72h.';
+          'Iniciar o tratamento com densidade de energia de 4-5j/cm² por ponto a cada 48 a 72h. Não observando resultado satisfatório após algumas sessões, aumentar a densidade de energia gradualmente até 10j/cm² por ponto a cada 48 a 72h.';
     }
-  }
-
-  void calcEnergyDensity(potency, beamArea) {
-    energyDensity.value = potency / beamArea;
   }
 }

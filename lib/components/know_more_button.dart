@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:laser_erapia/utils/constants.dart';
 
 class KnowMoreButton extends StatelessWidget {
   final VoidCallback onpress;
@@ -11,7 +12,7 @@ class KnowMoreButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onpress,
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF1F4C26),
+          backgroundColor: kRedColor,
         ),
         child: Text(buttonText ?? 'SAIBA MAIS'),
       ),

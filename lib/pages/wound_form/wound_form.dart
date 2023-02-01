@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:laser_erapia/components/default_button.dart';
 import 'package:laser_erapia/controllers/result_controller.dart';
+import 'package:laser_erapia/pages/wound_form/components/choice_card.dart';
 import 'package:laser_erapia/pages/wound_form/components/dropdown_menu.dart';
 import 'package:laser_erapia/components/form_area.dart';
 import 'package:laser_erapia/components/form_page_body.dart';
@@ -101,86 +102,98 @@ class _WoundFormState extends State<WoundForm> {
     var size = MediaQuery.of(context).size;
     var screenHeight = size.height - appBarHeight;
     var paddingHeight = MediaQuery.of(context).padding.top;
+    //e0eef9
 
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 243, 240, 240),
+      appBar: AppBar(
+        backgroundColor: kRedColor,
+        title: Text('Informações da lesão'),
+        centerTitle: true,
+      ),
       body: Form(
         key: _formKey,
         child: FormPageBody(children: [
-          const Padding(
-            padding: EdgeInsets.only(left: 20),
-            child: Text(
-              'Avaliando a ferida',
-              style: kFormTitleStyle,
-              textAlign: TextAlign.start,
-            ),
-          ),
-          const Padding(
-            padding: EdgeInsets.only(left: 20),
-            child: Text(
-              'Preencha com as características examinadas na lesão do paciente',
-              style: kFormSubtitleStyle,
-            ),
-          ),
+          // Text(
+          //   'Avaliando a ferida',
+          //   style: kFormTitleStyle,
+          //   textAlign: TextAlign.start,
+          // ),
+          // const Padding(
+          //   padding: EdgeInsets.only(left: 20),
+          //   child: Text(
+          //     'Preencha com as características examinadas na lesão do paciente',
+          //     style: kFormSubtitleStyle,
+          //   ),
+          // ),
           FormArea(
             children: [
-              formTitle(
-                  text:
-                      'A etiologia da lesão é oncológica ou sem diagnóstico?'),
-              RadioButtons(
-                onPressNo: () {
-                  setState(() {
-                    etiology = "Válido";
-                    showEtiology = true;
-                  });
-                },
-                onPressYes: () {
-                  setState(() {
-                    etiology = "Etiologia inválida";
-                    showEtiology = true;
-                  });
-                },
-              ),
-
-              if (etiology != 'Etiologia inválida' && showEtiology == true)
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    formTitle(text: 'Informe a etiologia'),
-                    DropdownList(
-                      listItems: listOfEtiologies,
-                      fieldName: 'etiology',
-                    ),
-                    SizedBox(height: 20)
-                  ],
+              choiceCard([
+                formTitle(
+                    text:
+                        'A etiologia da lesão é oncológica ou sem diagnóstico?'),
+                RadioButtons(
+                  onPressNo: () {
+                    setState(() {
+                      etiology = "Válido";
+                      showEtiology = true;
+                    });
+                  },
+                  onPressYes: () {
+                    setState(() {
+                      etiology = "Etiologia inválida";
+                      showEtiology = true;
+                    });
+                  },
                 ),
+                if (etiology != 'Etiologia inválida' && showEtiology == true)
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 10),
+                      formTitle(text: 'Informe a etiologia'),
+                      DropdownList(
+                        listItems: listOfEtiologies,
+                        fieldName: 'etiology',
+                      ),
+                    ],
+                  ),
+              ]),
 
-              formTitle(text: 'A localização da lesão é em abdome gravídico?'),
-              RadioButtons(
-                onPressNo: () {
-                  setState(() {
-                    location = "Válido";
-                    showLocation = true;
-                  });
-                },
-                onPressYes: () {
-                  setState(() {
-                    location = "Localização inválida";
-                    showLocation = true;
-                  });
-                },
-              ),
-              if (location != 'Localização inválida' && showLocation == true)
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    formTitle(text: 'Localização anatômica'),
-                    DropdownList(
-                      listItems: listOfLocations,
-                      fieldName: 'woundLocation',
-                    ),
-                    SizedBox(height: 20)
-                  ],
+              //
+              //
+              //
+
+              choiceCard([
+                formTitle(
+                    text: 'A localização da lesão é em abdome gravídico?'),
+                RadioButtons(
+                  onPressNo: () {
+                    setState(() {
+                      location = "Válido";
+                      showLocation = true;
+                    });
+                  },
+                  onPressYes: () {
+                    setState(() {
+                      location = "Localização inválida";
+                      showLocation = true;
+                    });
+                  },
                 ),
+                if (location != 'Localização inválida' && showLocation == true)
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 10),
+                      formTitle(text: 'Localização anatômica'),
+                      DropdownList(
+                        listItems: listOfLocations,
+                        fieldName: 'woundLocation',
+                      ),
+                    ],
+                  ),
+              ]),
 
               formTitle(text: 'Largura da lesão'),
               FormInput(
@@ -211,8 +224,9 @@ class _WoundFormState extends State<WoundForm> {
               formTitle(text: 'Tipo de exsudato'),
               DropdownList(
                 listItems: const [
+                  'Nenhum',
                   'Seroso ou serosanguinolento',
-                  'Sanguinolento com sangramento ativo',
+                  'Sanguinolento com sangramento',
                   'Seropurulento ou purulento',
                 ],
                 fieldName: 'exudateType',
@@ -223,27 +237,30 @@ class _WoundFormState extends State<WoundForm> {
                 listItems: const [
                   'Regular ou irregular, aderida',
                   'Descolada',
-                  'Masceração',
+                  'Maceração',
                   'Hiperqueratose'
                 ],
                 fieldName: 'woundBorders',
               ),
 
               //OBS: essa é a última pergunta
-              formTitle(text: 'A lesão possui sinais de infecção?'),
-              RadioButtons(
-                onPressNo: () {
-                  setState(() {
-                    hasInfection = false;
-                  });
-                },
-                onPressYes: () {
-                  setState(() {
-                    //  location = "Localização inválida";
-                    hasInfection = true;
-                  });
-                },
-              ),
+              SizedBox(height: 10),
+              choiceCard([
+                formTitle(text: 'A lesão possui sinais de infecção?'),
+                RadioButtons(
+                  onPressNo: () {
+                    setState(() {
+                      hasInfection = false;
+                    });
+                  },
+                  onPressYes: () {
+                    setState(() {
+                      //  location = "Localização inválida";
+                      hasInfection = true;
+                    });
+                  },
+                ),
+              ]),
             ],
           ),
         ]),
@@ -254,17 +271,14 @@ class _WoundFormState extends State<WoundForm> {
             onpress: () {
               resultController.observations.value = [];
               FocusScope.of(context).unfocus();
-              if (predominantTissue == 'Necrose preta, cinza ou esfacelos') {
-                resultController.observations
-                    .add('Adiar Laserterapia para após desbridamento');
-              }
+
               //
               //
               if (woundController.exudateAmount.value != 'Nenhum' ||
                   woundController.exudateType.value ==
                       'Seropurulento ou purulento') {
                 resultController.observations
-                    .add('Adiar Laserterapia para após limpeza');
+                    .add('Aplicar Laserterapia após limpeza');
               }
               //
               //
@@ -281,10 +295,7 @@ class _WoundFormState extends State<WoundForm> {
               }
               //
               //
-              if (woundController.woundBorders.value == 'Hiperqueratose') {
-                resultController.observations
-                    .add('Adiar Laserterapia na borda para após desbaste');
-              }
+
               //
               //
               if (etiology == 'Etiologia inválida') {
@@ -299,6 +310,24 @@ class _WoundFormState extends State<WoundForm> {
                     title: 'Localização inválida!',
                     desc:
                         'O tratamento é contraindicado na área do abdome em mulheres gestantes.');
+              } else if (woundController.predominantTissue.value ==
+                  'Necrose preta, cinza ou esfacelos') {
+                showAlert(
+                    context: context,
+                    title: 'Tratamento contraindicado!',
+                    desc: 'Adiar Laserterapia até desbridamento.');
+              } else if (woundController.exudateType.value ==
+                  'Sanguinolento com sangramento') {
+                showAlert(
+                    context: context,
+                    title: 'Tratamento contraindicado!',
+                    desc: 'Adiar Laserterapia até melhora do sangramento.');
+              } else if (woundController.woundBorders.value ==
+                  'Hiperqueratose') {
+                showAlert(
+                    context: context,
+                    title: 'Tratamento contraindicado!',
+                    desc: 'Adiar Laserterapia na borda até desbaste.');
               }
 
               //

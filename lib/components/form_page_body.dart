@@ -22,19 +22,20 @@ class FormPageBody extends StatelessWidget {
     return Container(
       width: size.width,
       height: size.height,
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-            image: AssetImage(kFormBackgroundImage), fit: BoxFit.cover),
-      ),
+      // decoration: const BoxDecoration(
+      //   image: DecorationImage(
+      //       image: AssetImage(kFormBackgroundImage), fit: BoxFit.cover),
+      // ),
       child: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(bottom: 20),
+          padding: const EdgeInsets.only(bottom: 20, right: 10, left: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: paddingHeight + 10),
+              // SizedBox(height: paddingHeight + 10),
+              const SizedBox(height: 20),
               ...children,
-              SizedBox(height: 100),
+              // const SizedBox(height: 80),
             ],
           ),
         ),

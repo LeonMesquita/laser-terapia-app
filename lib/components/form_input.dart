@@ -21,7 +21,7 @@ class FormInput extends StatelessWidget {
     return Center(
       child: Container(
         margin: const EdgeInsets.only(top: 10, bottom: 20),
-        width: size.width * .7,
+        width: size.width,
         child: TextFormField(
           validator: (length) {
             if (length == null || length.isEmpty) {
@@ -36,8 +36,12 @@ class FormInput extends StatelessWidget {
               isDense: true,
               filled: true,
               fillColor: Colors.white,
-              border:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(color: Colors.red)),
+              // enabledBorder: OutlineInputBorder(
+              //     borderRadius: BorderRadius.circular(10),
+              //     borderSide: BorderSide(color: Colors.red)),
               hintText: hintText,
               hintStyle: const TextStyle(
                 fontStyle: FontStyle.italic,

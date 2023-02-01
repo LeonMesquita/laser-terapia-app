@@ -1,63 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:laser_erapia/utils/constants.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
-
-void alertDialog(
-    {required BuildContext context,
-    required message,
-    VoidCallback? onpress,
-    VoidCallback? secondButtonOnpress,
-    bool? secondButton = false,
-    String? buttonText,
-    String? secondButtonText}) {
-  showDialog(
-    context: context,
-    builder: (context) => AlertDialog(
-      actionsAlignment: MainAxisAlignment.center,
-      title: Padding(
-        padding: EdgeInsets.only(bottom: 20),
-        child: Text(
-          message,
-          textAlign: TextAlign.center,
-        ),
-      ),
-      actions: [
-        Padding(
-          padding: const EdgeInsets.only(top: 20),
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF1F4C26),
-            ),
-            onPressed: onpress ??
-                () {
-                  Navigator.of(context).pop();
-                },
-            child: Text(
-              buttonText ?? 'Entendi',
-              style: TextStyle(fontSize: 15),
-            ),
-          ),
-        ),
-        if (secondButton == true)
-          Padding(
-            padding: const EdgeInsets.only(top: 20),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF1F4C26),
-              ),
-              onPressed: onpress ??
-                  () {
-                    Navigator.of(context).pop();
-                  },
-              child: Text(
-                secondButtonText ?? 'Entendi',
-                style: TextStyle(fontSize: 15),
-              ),
-            ),
-          ),
-      ],
-    ),
-  );
-}
 
 Future<void> showAlert(
     {required BuildContext context,
@@ -94,7 +37,7 @@ Future<void> showAlert(
 
 DialogButton dialogButton({VoidCallback? onpress, required text}) {
   return DialogButton(
-    color: const Color(0xFF1F4C26),
+    color: kRedColor,
     onPressed: onpress,
     child: Text(
       text,
